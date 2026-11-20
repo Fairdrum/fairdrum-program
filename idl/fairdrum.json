@@ -1,0 +1,3492 @@
+{
+  "address": "5ww3w4HrQrrrPcjfxVRvjLpL5vBJqLt7M5ThsnEkkngf",
+  "metadata": {
+    "name": "fairdrum",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "FAIRDRUM: an open drum game on Solana"
+  },
+  "instructions": [
+    {
+      "name": "accept_dev_authority",
+      "docs": [
+        "Changing the administrator key, step 2: the new key confirms it itself — this way the rights cannot be handed to a keyless address by mistake.",
+        "If the launch fund was under the same key, it moves along with it."
+      ],
+      "discriminator": [
+        133,
+        201,
+        85,
+        202,
+        206,
+        69,
+        30,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "new_dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "accept_root_authority",
+      "docs": [
+        "Hand-over of the root authority, step 2: the new key confirms it itself, so the right cannot be handed to a keyless",
+        "address by a typo (after the program is closed that would stop the game for good when the secrets run out)."
+      ],
+      "discriminator": [
+        108,
+        147,
+        163,
+        175,
+        67,
+        148,
+        250,
+        100
+      ],
+      "accounts": [
+        {
+          "name": "new_authority",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "root_auth",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  111,
+                  116,
+                  45,
+                  97,
+                  117,
+                  116,
+                  104
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "checkin",
+      "docs": [
+        "\"I am human\": a day check-in without a spin. Extends the streak."
+      ],
+      "discriminator": [
+        223,
+        175,
+        165,
+        27,
+        123,
+        7,
+        54,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_dev",
+      "docs": [
+        "Administrator's share: 10% of paid bets, accumulates in dev_pool (dev_authority)."
+      ],
+      "discriminator": [
+        67,
+        144,
+        21,
+        238,
+        28,
+        66,
+        170,
+        208
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "dev_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "user_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit_sweep",
+      "docs": [
+        "Credit SOL from the player's personal deposit address to their game balance. The address is derived from the player's wallet,",
+        "nobody holds a key to it; SOL can be sent to it from anywhere (an exchange, another wallet). Anyone can send",
+        "the command — it can do only one thing: move SOL from the owner's address to that same owner's balance.",
+        "The sender of the command is reimbursed the network fee; if the player's wallet is empty, a small part goes to it for fees."
+      ],
+      "discriminator": [
+        134,
+        162,
+        18,
+        101,
+        42,
+        151,
+        165,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "Whoever sent the command (the keeper, the player's site or anyone): they are reimbursed the network fee"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "deposit",
+          "docs": [
+            "Personal deposit address: a regular system account at an address derived from the player's wallet"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "docs": [
+            "Player account: if it does not exist yet, it is created by this same crediting (the sender pays, the cost is reimbursed from the deposit)"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "donate",
+      "docs": [
+        "Contribute one's own funds to the jackpot seed reserve (anyone can). They cannot be taken back:",
+        "from the reserve funds go only into the jackpot pots, that is, to players."
+      ],
+      "discriminator": [
+        121,
+        186,
+        218,
+        211,
+        73,
+        70,
+        196,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "user_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fund_pools",
+      "docs": [
+        "After the tokens have been sent to the vault. Anyone can call it, once."
+      ],
+      "discriminator": [
+        224,
+        151,
+        202,
+        45,
+        150,
+        180,
+        21,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "guard_pause",
+      "docs": [
+        "The guardian (or the administrator) pauses acceptance of NEW bets. Only the administrator can lift the pause.",
+        "Settlements, payouts and withdrawals do not depend on the pause."
+      ],
+      "discriminator": [
+        211,
+        200,
+        184,
+        71,
+        36,
+        11,
+        99,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "guard",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_unwrap",
+      "docs": [
+        "Once after the upgrade: create the service account of wrapped SOL for `withdraw_sol`. Administrator only (audit No. 10,",
+        "P10-3): this is the switch that turns `withdraw_sol` on, and it must stay in the owner's hands until the instruction has been",
+        "rehearsed on the mainnet token program. The administrator pays the network's rent deposit ≈0.00204 SOL; the account's address",
+        "and owner are set by the program and cannot be chosen. Until the account is created, `withdraw_sol` is rejected and",
+        "the previous `withdraw` works as before."
+      ],
+      "discriminator": [
+        241,
+        109,
+        85,
+        252,
+        217,
+        201,
+        64,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The administrator: only they can turn `withdraw_sol` on; pays the rent deposit of the service account"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "unwrap_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  119,
+                  114,
+                  97,
+                  112
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "docs": [
+        "Once, only by the holder of the program's upgrade authority. The game currency is wrapped SOL: the mint passed here",
+        "must be the native mint (checked below)."
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "program_data",
+          "docs": [
+            "Only whoever holds the upgrade authority of THIS program can set the launch parameters (protection against front-running).",
+            "The address of the program data account is computed from the program id: otherwise one could slip in",
+            "a foreign program whose authority belongs to the attacker and take over the launch before the owner."
+          ]
+        },
+        {
+          "name": "program",
+          "address": "5ww3w4HrQrrrPcjfxVRvjLpL5vBJqLt7M5ThsnEkkngf"
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "InitParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "promo_pay",
+      "docs": [
+        "Payout from the promotion fund (invitations, monthly ranking, advertising). Every payout is public."
+      ],
+      "discriminator": [
+        13,
+        243,
+        140,
+        244,
+        245,
+        101,
+        178,
+        97
+      ],
+      "accounts": [
+        {
+          "name": "promo",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "dest_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "propose_dev_authority",
+      "docs": [
+        "Changing the administrator key, step 1: the current key names the new one. Pubkey::default() cancels the proposal."
+      ],
+      "discriminator": [
+        243,
+        18,
+        240,
+        33,
+        87,
+        190,
+        63,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_authority",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "propose_root_authority",
+      "docs": [
+        "Hand-over of the root authority, step 1: the current root authority names the new key. Pubkey::default() cancels."
+      ],
+      "discriminator": [
+        152,
+        72,
+        30,
+        214,
+        86,
+        219,
+        60,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "root_authority",
+          "signer": true
+        },
+        {
+          "name": "root_auth",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  111,
+                  116,
+                  45,
+                  97,
+                  117,
+                  116,
+                  104
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_authority",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "register",
+      "docs": [
+        "Registration: open to everyone right after launch. The game has no invitations or referrals."
+      ],
+      "discriminator": [
+        211,
+        124,
+        67,
+        15,
+        211,
+        194,
+        178,
+        240
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "rescale_pools",
+      "docs": [
+        "Move of the administrator's funds from the seed reserve into the games' prize bank; moving into the pots is not allowed (administrator only)."
+      ],
+      "discriminator": [
+        142,
+        97,
+        235,
+        15,
+        216,
+        114,
+        178,
+        214
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "to_prize",
+          "type": "u64"
+        },
+        {
+          "name": "to_jackpot",
+          "type": "u64"
+        },
+        {
+          "name": "to_super",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "roll_epoch",
+      "docs": [
+        "Once a week updates the weekly spin statistics. Moves no funds (the bank's surplus is released by settlements, not here). Called automatically on spins."
+      ],
+      "discriminator": [
+        17,
+        54,
+        176,
+        59,
+        34,
+        11,
+        253,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "session_close",
+      "docs": [
+        "Close a session early: the account rent is returned to the owner."
+      ],
+      "discriminator": [
+        152,
+        189,
+        197,
+        33,
+        159,
+        93,
+        219,
+        62
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "session",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "session_open",
+      "docs": [
+        "Open (or reissue) a game session: with one signature the owner allows a temporary",
+        "key to make spins on their behalf — for no longer than secs seconds and no more than limit tokens of bets.",
+        "A session key cannot withdraw, deposit or change the wallet: only commit spins."
+      ],
+      "discriminator": [
+        198,
+        62,
+        204,
+        19,
+        156,
+        87,
+        139,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "player",
+          "docs": [
+            "Only a registered player can open a session"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "key",
+          "type": "pubkey"
+        },
+        {
+          "name": "secs",
+          "type": "i64"
+        },
+        {
+          "name": "limit",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_guardian",
+      "docs": [
+        "Appoint a \"guardian\" (administrator only): a key that can only pause acceptance of new bets."
+      ],
+      "discriminator": [
+        147,
+        243,
+        50,
+        121,
+        154,
+        164,
+        50,
+        30
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "guardian",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_house_root",
+      "docs": [
+        "Set the root of the house secret tree. Applies to SUBSEQUENT bets: every bet already",
+        "placed has its own root recorded in its account, and a new root does not affect it. Needed at launch, when the secrets",
+        "are running out, and if the secrets file may have fallen into the wrong hands.",
+        "",
+        "Who signs (exactly one party at any time; never the administrator: upgrade No. 2, audit No. 10, P10-1):",
+        "* the `RootAuth` account EXISTS (created by `set_root_authority`): only the root authority recorded in it. The upgrade",
+        "authority is then refused here, and the program data account is not read at all, so this path does not depend on the",
+        "upgrade authority or on the loader in any way and keeps working after the upgrade authority is revoked;",
+        "* the `RootAuth` account does not exist: the holder of the program's upgrade authority, as before. If the upgrade",
+        "authority is revoked in THAT state, the root can never be changed again (bets stop when the secrets run out).",
+        "Whoever sets the root knows the secrets of every later round and can settle rounds selectively."
+      ],
+      "discriminator": [
+        200,
+        135,
+        59,
+        134,
+        235,
+        103,
+        122,
+        220
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "docs": [
+            "The root authority if the `RootAuth` account exists, otherwise the holder of the program's upgrade authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "program_data",
+          "docs": [
+            "id, owner = the upgradeable loader, recorded authority = the signer) ONLY while the `RootAuth` account does not exist;",
+            "once it exists this account is ignored, so nothing here depends on the loader after the program is closed."
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "root_auth",
+          "docs": [
+            "exists (is owned by this program) and what it says is checked in the instruction."
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  111,
+                  116,
+                  45,
+                  97,
+                  117,
+                  116,
+                  104
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "depth",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "set_jackpot_starts",
+      "docs": [
+        "Starting amounts of the jackpot and the super jackpot (administrator only): a pot is topped up to them from the reserve after a win.",
+        "They take effect after 24 hours; bets placed earlier are settled at the previous amounts."
+      ],
+      "discriminator": [
+        139,
+        34,
+        122,
+        156,
+        148,
+        117,
+        153,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "jackpot_start",
+          "type": "u64"
+        },
+        {
+          "name": "super_start",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_paused",
+      "docs": [
+        "Pause or resume acceptance of NEW bets (administrator only) — in case of a failure or an incident.",
+        "Bets already placed are settled as usual; payouts and withdrawals do not depend on the pause."
+      ],
+      "discriminator": [
+        91,
+        60,
+        125,
+        192,
+        176,
+        225,
+        166,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "dev",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_root_authority",
+      "docs": [
+        "Name the ROOT AUTHORITY: the dedicated key that alone may set the secrets root from now on (see `set_house_root`).",
+        "Signed by the holder of the program's upgrade authority; creates the `RootAuth` account or replaces the key in it (and",
+        "cancels a pending hand-over). Possible only while an upgrade authority exists: after it is revoked the key changes only",
+        "by the two-step hand-over below. The key cannot be empty or coincide with the administrator, the proposed administrator,",
+        "the launch-fund key or the guardian: the root authority must be a key that can do nothing else."
+      ],
+      "discriminator": [
+        103,
+        167,
+        60,
+        190,
+        229,
+        246,
+        118,
+        142
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "docs": [
+            "The holder of the program's upgrade authority; pays the rent of the record when it is created"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "program_data"
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "root_auth",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  111,
+                  116,
+                  45,
+                  97,
+                  117,
+                  116,
+                  104
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "key",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "spin_commit",
+      "docs": [
+        "Round step 1: the bet is debited, the round gets the next house secret number, the bet's block and",
+        "the secret root in effect are remembered. Nobody knows the outcome at this moment: the secret is not yet revealed and the block is not yet closed."
+      ],
+      "discriminator": [
+        11,
+        218,
+        37,
+        213,
+        179,
+        74,
+        158,
+        195
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "docs": [
+            "Signer: the player's owner or their session key"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session",
+          "docs": [
+            "Session: required only when a session key signs"
+          ],
+          "writable": true,
+          "optional": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "n",
+          "type": "u16"
+        },
+        {
+          "name": "use_free",
+          "type": "bool"
+        },
+        {
+          "name": "mode",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "spin_expire",
+      "docs": [
+        "Refund of the bet for a round the house did not complete. Two cases:",
+        "* the round was neither settled nor sealed while the hash of the bet's block was available (≈3.5 minutes) — it will never have an outcome;",
+        "* the round is sealed, but the house did not reveal its secret for 24 hours.",
+        "The bet is returned in full to the game balance. Anyone can call it. The player cannot influence this: they do not know",
+        "the secret and cannot obstruct settlement. Every refund increments the public counter Config.refunds."
+      ],
+      "discriminator": [
+        126,
+        145,
+        113,
+        122,
+        211,
+        192,
+        157,
+        117
+      ],
+      "accounts": [
+        {
+          "name": "settler",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "player.owner",
+                "account": "Player"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "slot_hashes",
+          "address": "SysvarS1otHashes111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "spin_seal",
+      "docs": [
+        "Seal a round: record the hash of the bet's block while it is available (≈3.5 minutes after the bet). Anyone can call it,",
+        "any number of times: the value is uniquely determined by the bet's block. Needed if settlement is delayed (the house",
+        "keeper is unavailable): a sealed round can be settled later, an unsealed one cannot. Usually settlement seals it itself."
+      ],
+      "discriminator": [
+        63,
+        225,
+        104,
+        203,
+        146,
+        108,
+        171,
+        94
+      ],
+      "accounts": [
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "player.owner",
+                "account": "Player"
+              }
+            ]
+          }
+        },
+        {
+          "name": "slot_hashes",
+          "address": "SysvarS1otHashes111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "spin_settle",
+      "docs": [
+        "Step 2: settlement. The caller (usually the house keeper) reveals the round secret and the path to the root; the contract checks",
+        "the secret against the root recorded at bet time, mixes it with the hash of the bet's block and computes the outcome. The secret cannot be swapped:",
+        "only one fits the root. After the round's deadline (≈20 minutes) the pots are no longer played in it: this way the owner",
+        "of the secret cannot wait for a pot to grow."
+      ],
+      "discriminator": [
+        173,
+        230,
+        129,
+        69,
+        191,
+        70,
+        143,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "settler",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "player.owner",
+                "account": "Player"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "slot_hashes",
+          "address": "SysvarS1otHashes111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "secret",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "user_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_sol",
+      "docs": [
+        "Withdrawal in regular SOL — without \"wrapped SOL\" in the player's wallet (upgrade No. 2, change C; site audit S9-01).",
+        "The previous `withdraw` command pays to the player's token account, which the site must first create for ~0.00204 SOL from",
+        "the player's wallet; a built-in wallet may not have those funds. Here the player needs only the network fee.",
+        "",
+        "The accounting, the withdrawal rules and the vault protection are the same as for `withdraw` (the same `engine::withdraw`, the same `solvent`).",
+        "Only the delivery of the funds differs: vault → service account of wrapped SOL (its owner is the config account) →",
+        "closing the service account into the player's wallet (this turns wrapped SOL into regular SOL) → the service account is re-created",
+        "on the rent deposit the player returned. All in one command: either the player received exactly `net` in regular SOL and the service account",
+        "is empty and ready again, or nothing changed."
+      ],
+      "discriminator": [
+        145,
+        131,
+        74,
+        136,
+        65,
+        137,
+        42,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "docs": [
+            "Player: signs and receives regular SOL"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "player",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "The game currency is wrapped SOL (this was already checked at launch, in initialize); here the check is repeated explicitly"
+          ]
+        },
+        {
+          "name": "unwrap_account",
+          "docs": [
+            "Service account of wrapped SOL: the address is derived from the program, the owner is the config account"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  119,
+                  114,
+                  97,
+                  112
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "Player",
+      "discriminator": [
+        205,
+        222,
+        112,
+        7,
+        165,
+        155,
+        206,
+        218
+      ]
+    },
+    {
+      "name": "RootAuth",
+      "discriminator": [
+        104,
+        42,
+        128,
+        195,
+        175,
+        117,
+        117,
+        86
+      ]
+    },
+    {
+      "name": "Session",
+      "discriminator": [
+        243,
+        81,
+        72,
+        115,
+        214,
+        188,
+        72,
+        144
+      ]
+    }
+  ],
+  "events": [
+    {
+      "discriminator": [
+        102,
+        75,
+        226,
+        17,
+        217,
+        247,
+        181,
+        218
+      ],
+      "name": "AdminAction"
+    },
+    {
+      "discriminator": [
+        30,
+        73,
+        221,
+        234,
+        131,
+        11,
+        225,
+        206
+      ],
+      "name": "BankReleased"
+    },
+    {
+      "discriminator": [
+        207,
+        37,
+        251,
+        154,
+        239,
+        229,
+        14,
+        67
+      ],
+      "name": "Burned"
+    },
+    {
+      "discriminator": [
+        55,
+        231,
+        159,
+        160,
+        239,
+        83,
+        141,
+        95
+      ],
+      "name": "DepositSwept"
+    },
+    {
+      "discriminator": [
+        185,
+        99,
+        207,
+        231,
+        204,
+        221,
+        121,
+        223
+      ],
+      "name": "EpochRolled"
+    },
+    {
+      "discriminator": [
+        112,
+        218,
+        201,
+        42,
+        25,
+        63,
+        239,
+        10
+      ],
+      "name": "PromoPaid"
+    },
+    {
+      "discriminator": [
+        11,
+        222,
+        10,
+        72,
+        160,
+        110,
+        165,
+        227
+      ],
+      "name": "Registered"
+    },
+    {
+      "discriminator": [
+        48,
+        109,
+        23,
+        150,
+        54,
+        13,
+        247,
+        234
+      ],
+      "name": "RoundInputs"
+    },
+    {
+      "discriminator": [
+        99,
+        213,
+        118,
+        5,
+        55,
+        211,
+        57,
+        71
+      ],
+      "name": "RoundRevealed"
+    },
+    {
+      "discriminator": [
+        222,
+        58,
+        92,
+        201,
+        4,
+        146,
+        64,
+        110
+      ],
+      "name": "SpinCommitted"
+    },
+    {
+      "discriminator": [
+        31,
+        68,
+        15,
+        166,
+        151,
+        136,
+        158,
+        67
+      ],
+      "name": "SpinSettled"
+    },
+    {
+      "discriminator": [
+        20,
+        89,
+        223,
+        198,
+        194,
+        124,
+        219,
+        13
+      ],
+      "name": "Withdrawn"
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotFunded",
+      "msg": "Pools are not funded yet"
+    },
+    {
+      "code": 6001,
+      "name": "AlreadyFunded",
+      "msg": "Pools are already funded"
+    },
+    {
+      "code": 6002,
+      "name": "VaultUnderfunded",
+      "msg": "Vault holds less than the launch parameters require"
+    },
+    {
+      "code": 6003,
+      "name": "NotStarted",
+      "msg": "The game has not started yet"
+    },
+    {
+      "code": 6004,
+      "name": "AlreadyRegistered",
+      "msg": "Account is already registered"
+    },
+    {
+      "code": 6005,
+      "name": "NotRegistered",
+      "msg": "Registration required"
+    },
+    {
+      "code": 6006,
+      "name": "InsufficientBalance",
+      "msg": "Insufficient game balance"
+    },
+    {
+      "code": 6007,
+      "name": "NoFreeSpins",
+      "msg": "No free spins left this week"
+    },
+    {
+      "code": 6008,
+      "name": "ActivityFundEmpty",
+      "msg": "Activity fund is empty"
+    },
+    {
+      "code": 6009,
+      "name": "BatchTooLarge",
+      "msg": "Round is too large"
+    },
+    {
+      "code": 6010,
+      "name": "BadCount",
+      "msg": "Invalid round size"
+    },
+    {
+      "code": 6011,
+      "name": "SpinPending",
+      "msg": "Previous round is not settled yet"
+    },
+    {
+      "code": 6012,
+      "name": "NoPending",
+      "msg": "No pending round"
+    },
+    {
+      "code": 6013,
+      "name": "RandomnessAlreadyRevealed",
+      "msg": "Randomness is already revealed"
+    },
+    {
+      "code": 6014,
+      "name": "WrongRandomness",
+      "msg": "Wrong randomness account"
+    },
+    {
+      "code": 6015,
+      "name": "RandomnessNotResolved",
+      "msg": "Randomness is not resolved yet"
+    },
+    {
+      "code": 6016,
+      "name": "SettleTooEarly",
+      "msg": "Too early: wait for the next slot"
+    },
+    {
+      "code": 6017,
+      "name": "NotExpired",
+      "msg": "Round has not expired yet"
+    },
+    {
+      "code": 6018,
+      "name": "PendingExpired",
+      "msg": "Round has expired"
+    },
+    {
+      "code": 6019,
+      "name": "Unauthorized",
+      "msg": "Unauthorized"
+    },
+    {
+      "code": 6020,
+      "name": "BadAmount",
+      "msg": "Invalid amount"
+    },
+    {
+      "code": 6021,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 6022,
+      "name": "BadParams",
+      "msg": "Invalid parameters"
+    },
+    {
+      "code": 6023,
+      "name": "MiniAlreadySeeded",
+      "msg": "Mini pool is already seeded"
+    },
+    {
+      "code": 6024,
+      "name": "SessionExpired",
+      "msg": "Session has expired"
+    },
+    {
+      "code": 6025,
+      "name": "SessionLimit",
+      "msg": "Session limit exceeded"
+    },
+    {
+      "code": 6026,
+      "name": "BadSession",
+      "msg": "Invalid session parameters"
+    },
+    {
+      "code": 6027,
+      "name": "BadMode",
+      "msg": "Unknown game mode"
+    },
+    {
+      "code": 6028,
+      "name": "WithdrawLocked",
+      "msg": "Withdrawal is locked after a recent deposit"
+    },
+    {
+      "code": 6029,
+      "name": "Paused",
+      "msg": "New bets are paused"
+    },
+    {
+      "code": 6030,
+      "name": "NotSealed",
+      "msg": "Round was not sealed in time"
+    },
+    {
+      "code": 6031,
+      "name": "SolvencyGuard",
+      "msg": "Solvency guard: vault would not cover obligations"
+    },
+    {
+      "code": 6032,
+      "name": "BadProof",
+      "msg": "Round secret does not match the committed root"
+    },
+    {
+      "code": 6033,
+      "name": "HouseExhausted",
+      "msg": "Round secrets are not set or exhausted"
+    },
+    {
+      "code": 6034,
+      "name": "UnwrapFailed",
+      "msg": "Unwrap account check failed"
+    },
+    {
+      "code": 6035,
+      "name": "NotRootAuthority",
+      "msg": "Only the root authority can do this"
+    }
+  ],
+  "types": [
+    {
+      "docs": [
+        "Administrator action: kind 1 — collected the share (a = amount), 2 — new starting amounts (a = jackpot, b = super),",
+        "3 — move from the reserve to the prize bank (a = amount), 4 — bet pause (a = 1/0), 5 — new key proposed, 6 — key changed,",
+        "7 — guardian appointed, 8 — guardian paused bets, 9 — new secret root set (a = depth, b = from which bet),",
+        "10 — root authority named by the upgrade authority (key = the root authority), 11 — hand-over of the root authority",
+        "proposed (key = the proposed key, zero = cancelled), 12 — root authority handed over (key = the new root authority)"
+      ],
+      "name": "AdminAction",
+      "type": {
+        "fields": [
+          {
+            "name": "kind",
+            "type": "u8"
+          },
+          {
+            "name": "a",
+            "type": "u64"
+          },
+          {
+            "name": "b",
+            "type": "u64"
+          },
+          {
+            "name": "key",
+            "type": "pubkey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "The bank's surplus moved to the seed reserve at the end of a settlement (the rule of `consts::bank_release`): `amount`",
+        "lamports left the prize bank; `prize_pool` and `seed_reserve` are the two pools after the move. Written only when",
+        "something moved, after SpinSettled."
+      ],
+      "name": "BankReleased",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "prize_pool",
+            "type": "u64"
+          },
+          {
+            "name": "seed_reserve",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Burned",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "streak",
+            "type": "u32"
+          },
+          {
+            "name": "run_spins",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "dev_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "promo_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "start_ts",
+            "type": "i64"
+          },
+          {
+            "name": "funded",
+            "type": "bool"
+          },
+          {
+            "name": "registered",
+            "docs": [
+              "Last issued registration number"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "act_pool",
+            "type": "u64"
+          },
+          {
+            "name": "prize_pool",
+            "type": "u64"
+          },
+          {
+            "name": "jackpot_pool",
+            "type": "u64"
+          },
+          {
+            "name": "mini_pool",
+            "type": "u64"
+          },
+          {
+            "name": "super_pool",
+            "docs": [
+              "Super jackpot (accumulates for a long time, see consts.rs)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "super_unlock_ts",
+            "docs": [
+              "No chance of the super jackpot before this time",
+              "Left over from the old super model with a time lock; always equals start_ts, not read (AUDIT O14)"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "seed_pool",
+            "type": "u64"
+          },
+          {
+            "name": "seed_reserve",
+            "type": "u64"
+          },
+          {
+            "name": "dev_pool",
+            "type": "u64"
+          },
+          {
+            "name": "promo_pool",
+            "type": "u64"
+          },
+          {
+            "name": "prize_buffer",
+            "type": "u64"
+          },
+          {
+            "name": "init_act",
+            "type": "u64"
+          },
+          {
+            "name": "init_prize",
+            "type": "u64"
+          },
+          {
+            "name": "init_seed_reserve",
+            "type": "u64"
+          },
+          {
+            "name": "init_jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "init_super",
+            "type": "u64"
+          },
+          {
+            "name": "den",
+            "type": "u64"
+          },
+          {
+            "name": "epoch_start",
+            "type": "i64"
+          },
+          {
+            "name": "epoch_spins",
+            "type": "u64"
+          },
+          {
+            "name": "total_spins",
+            "type": "u64"
+          },
+          {
+            "name": "total_burned",
+            "type": "u64"
+          },
+          {
+            "name": "jackpots_won",
+            "type": "u64"
+          },
+          {
+            "name": "minis_won",
+            "type": "u64"
+          },
+          {
+            "name": "supers_won",
+            "type": "u64"
+          },
+          {
+            "name": "next_jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "next_super",
+            "type": "u64"
+          },
+          {
+            "name": "starts_apply_ts",
+            "type": "i64"
+          },
+          {
+            "name": "mode_rounds",
+            "type": {
+              "array": [
+                "u64",
+                16
+              ]
+            }
+          },
+          {
+            "name": "staked_total",
+            "docs": [
+              "sum of paid bets over all time"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "paid_total",
+            "docs": [
+              "credited to players over all time: prizes and pots (including jackpot parts not yet paid out)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "dev_total",
+            "docs": [
+              "credited to the administrator over all time"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "wins",
+            "docs": [
+              "recent pot wins, circular; the next one is written to slot wins_head"
+            ],
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "WinRec"
+                  }
+                },
+                8
+              ]
+            }
+          },
+          {
+            "name": "wins_head",
+            "type": "u8"
+          },
+          {
+            "name": "pending_dev",
+            "docs": [
+              "New administrator key proposed by the current one; takes effect when the new key confirms it itself (accept_dev_authority)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Acceptance of new bets is paused. Settlements, payouts and withdrawals do not depend on this flag."
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "guardian",
+            "docs": [
+              "\"Guardian\": a key that can do only ONE thing — pause acceptance of new bets (not lift the pause, and nothing else).",
+              "The keeper holds it to stop bets on its own if the vault holds less than the obligations."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owed",
+            "docs": [
+              "Obligations to players: the sum of game balances, frozen jackpot parts and bets of unfinished rounds.",
+              "Maintained on every change of a player account; the contract uses it to check that the vault covers everything it owes."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "house_root",
+            "docs": [
+              "\"Fair draw\": the root of the tree of house secrets created in advance. Each round's secret is revealed at settlement",
+              "and checked against this root, so it cannot be swapped after the bet."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "house_depth",
+            "docs": [
+              "tree depth (it holds 2^depth secrets); 0 — the root is not set yet, bets are not accepted"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "house_start",
+            "docs": [
+              "number of the bet from which the current root took effect"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "round_counter",
+            "docs": [
+              "running bet counter: each bet gets the next secret number"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "house_prev",
+            "docs": [
+              "the eight previous secret roots: none of them can be set again (their secrets have already been revealed)"
+            ],
+            "type": {
+              "array": [
+                {
+                  "array": [
+                    "u8",
+                    32
+                  ]
+                },
+                8
+              ]
+            }
+          },
+          {
+            "name": "house_prev_head",
+            "docs": [
+              "where in house_prev to write the next previous root"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "refunds",
+            "docs": [
+              "how many rounds were closed by a bet refund (the house did not complete the round) — a public reliability indicator"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "docs": [
+        "Crediting from the personal deposit address: amount — to the game balance, drip — to the player's wallet for network fees"
+      ],
+      "name": "DepositSwept",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "drip",
+            "type": "u64"
+          },
+          {
+            "name": "payer",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "the game account was created by this same crediting (the network's rent for the record was reimbursed to the sender from the deposit)"
+            ],
+            "name": "created",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "EpochRolled",
+      "type": {
+        "fields": [
+          {
+            "name": "den",
+            "type": "u64"
+          },
+          {
+            "name": "moved_to_jackpot",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "InitParams",
+      "docs": [
+        "Launch parameters. Set once in initialize and never changed by anyone afterwards."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "dev_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "promo_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "start_ts",
+            "docs": [
+              "Time from which spinning is allowed (registration is open right after launch)"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "init_act",
+            "type": "u64"
+          },
+          {
+            "name": "init_prize",
+            "type": "u64"
+          },
+          {
+            "name": "init_seed_reserve",
+            "type": "u64"
+          },
+          {
+            "name": "init_jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "init_super",
+            "type": "u64"
+          },
+          {
+            "name": "prize_buffer",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Player",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "reg_no",
+            "type": "u64"
+          },
+          {
+            "name": "registered_at",
+            "type": "i64"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          },
+          {
+            "name": "jp_locked",
+            "type": "u64"
+          },
+          {
+            "name": "jp_per_week",
+            "type": "u64"
+          },
+          {
+            "name": "jp_clock",
+            "type": "i64"
+          },
+          {
+            "name": "last_day",
+            "type": "i64"
+          },
+          {
+            "name": "streak",
+            "type": "u32"
+          },
+          {
+            "name": "run_spins",
+            "type": "u64"
+          },
+          {
+            "name": "total_spins",
+            "type": "u64"
+          },
+          {
+            "name": "act_days",
+            "type": "u32"
+          },
+          {
+            "name": "last_deposit_ts",
+            "docs": [
+              "Time of the last deposit (Unix sec.) — for reference. The withdrawal lock is computed from dep_locked / dep_unlock_ts.",
+              "The field occupies the place of the former week_idx (weeks of free spins, which no longer exist): the mode is packed into the upper bits of p_n."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "week_used",
+            "type": "u16"
+          },
+          {
+            "name": "pending",
+            "type": "bool"
+          },
+          {
+            "name": "p_n",
+            "type": "u16"
+          },
+          {
+            "name": "p_free",
+            "type": "bool"
+          },
+          {
+            "name": "p_commit_slot",
+            "type": "u64"
+          },
+          {
+            "name": "p_root",
+            "docs": [
+              "Root of the house secret tree in effect at the moment of the bet (32 bytes, stored as a key). The round secret",
+              "is checked against it: nobody can change the secrets of a bet already placed."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "p_stake",
+            "type": "u64"
+          },
+          {
+            "name": "won_total",
+            "type": "u64"
+          },
+          {
+            "name": "p_leaf",
+            "docs": [
+              "Number of this round's secret in the house secret tree (the ordinal of the bet since the root was set)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "p_start_jackpot",
+            "docs": [
+              "Starting amounts of the jackpot and the super jackpot in effect at the moment of the bet: this round's chances are computed from them.",
+              "The administrator cannot change the chances of a bet already placed (audit of 11.11.2026, K1)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "p_start_super",
+            "type": "u64"
+          },
+          {
+            "name": "p_prize_cap",
+            "docs": [
+              "cap of a single prize, fixed at the moment of the bet (a quarter of the prize bank at that moment)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "p_salt",
+            "docs": [
+              "The round's \"salt\": the hash of the block in which the bet is recorded. Nobody knows it at bet time (the block is not yet closed),",
+              "so the outcome cannot be computed in advance even knowing the round secret."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "p_sealed",
+            "docs": [
+              "the salt is recorded (by the spin_seal command or by the settlement itself)"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "dep_locked",
+            "docs": [
+              "The withdrawal lock applies only to the DEPOSITED amount: this much of the balance cannot be withdrawn before dep_unlock_ts.",
+              "Winnings and everything above this amount can be withdrawn immediately."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "dep_unlock_ts",
+            "docs": [
+              "When the lock is lifted (Unix sec.). A new deposit shifts the term in proportion to its share of the frozen",
+              "amount: someone else's \"penny\" sent to the deposit address barely changes the term."
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PromoPaid",
+      "type": {
+        "fields": [
+          {
+            "name": "to",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Registered",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "number",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RootAuth",
+      "docs": [
+        "Root authority: the dedicated key that alone sets the root of the house secrets once this account exists (`set_house_root`).",
+        "It has no other right in the program. A separate small account at the address derived from the word \"root-auth\": the layout",
+        "of `Config`, `Player` and `Session` is not touched. Created (and, while an upgrade authority exists, replaced) by",
+        "`set_root_authority`; handed over by the key itself in two steps. There is no instruction that closes this account."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "The key that signs `set_house_root`"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "pending",
+            "docs": [
+              "Proposed next key (zero = no hand-over in progress); it takes over by signing `accept_root_authority`"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "docs": [
+        "Inputs of a round's settlement (upgrade No. 2): together with the round number from RoundRevealed this is enough to recompute",
+        "every outcome and every amount of the round bit for bit (recompute-v2). Written in the same transaction, before the settlement.",
+        "Amounts are in lamports. `mode` — the game (0…15), `n` — the number of paid bets, `late` — settlement past the deadline (the pots do not pay).",
+        "`prize_cap`, `start_jackpot`, `start_super` are recorded at bet time; the pools and `init_*` are the config state at the start of the settlement",
+        "(`init_*` — the starting amounts in effect in this settlement, taking a pending change into account if it is due)."
+      ],
+      "name": "RoundInputs",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "commit_slot",
+            "type": "u64"
+          },
+          {
+            "name": "mode",
+            "type": "u8"
+          },
+          {
+            "name": "n",
+            "type": "u16"
+          },
+          {
+            "name": "free",
+            "type": "bool"
+          },
+          {
+            "name": "late",
+            "type": "bool"
+          },
+          {
+            "name": "prize_cap",
+            "type": "u64"
+          },
+          {
+            "name": "start_jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "start_super",
+            "type": "u64"
+          },
+          {
+            "name": "prize_pool",
+            "type": "u64"
+          },
+          {
+            "name": "jackpot_pool",
+            "type": "u64"
+          },
+          {
+            "name": "mini_pool",
+            "type": "u64"
+          },
+          {
+            "name": "super_pool",
+            "type": "u64"
+          },
+          {
+            "name": "seed_pool",
+            "type": "u64"
+          },
+          {
+            "name": "seed_reserve",
+            "type": "u64"
+          },
+          {
+            "name": "init_jackpot",
+            "type": "u64"
+          },
+          {
+            "name": "init_super",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Round reveal: with these three values anyone can verify the round number.",
+        "number = sha256(\"fairdrum-round-salt-v1\", secret, salt); secret is checked against the root `root` (leaf number `leaf`)."
+      ],
+      "name": "RoundRevealed",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "leaf",
+            "type": "u64"
+          },
+          {
+            "name": "root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "secret",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "salt",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "commit_slot",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Session",
+      "docs": [
+        "Game session (owner's decision of 11.11.2026): a temporary key that the owner has allowed, once,",
+        "to make spins on their behalf — without a wallet window for every spin.",
+        "The key lives in the player's browser; the contract limits it by a lifetime and a bet budget.",
+        "This key cannot withdraw tokens, change the wallet or spend beyond the limit."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "key",
+            "type": "pubkey"
+          },
+          {
+            "name": "expiry_ts",
+            "type": "i64"
+          },
+          {
+            "name": "limit",
+            "docs": [
+              "Remaining bet budget in minimal units; every commit reduces it by the bet amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SpinCommitted",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "n",
+            "type": "u16"
+          },
+          {
+            "name": "free",
+            "type": "bool"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "SpinSettled",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "spins",
+            "type": "u64"
+          },
+          {
+            "name": "extras",
+            "type": "u64"
+          },
+          {
+            "name": "gold",
+            "type": "u32"
+          },
+          {
+            "name": "prizes",
+            "type": "u64"
+          },
+          {
+            "name": "best_prize",
+            "type": "u64"
+          },
+          {
+            "name": "mini_hits",
+            "type": "u32"
+          },
+          {
+            "name": "mini_won",
+            "type": "u64"
+          },
+          {
+            "name": "jackpot_hits",
+            "type": "u32"
+          },
+          {
+            "name": "jackpot_total",
+            "type": "u64"
+          },
+          {
+            "name": "super_hits",
+            "type": "u32"
+          },
+          {
+            "name": "super_total",
+            "type": "u64"
+          },
+          {
+            "name": "forfeited",
+            "type": "bool"
+          },
+          {
+            "docs": [
+              "the house did not complete the round: the bet was returned to the game balance in full"
+            ],
+            "name": "refunded",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "WinRec",
+      "docs": [
+        "Record of a pot win: who, how much, when. kind: 1 mini jackpot, 2 jackpot, 3 super jackpot; 0 — empty slot."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "player",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "ts",
+            "type": "i64"
+          },
+          {
+            "name": "kind",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Withdrawn",
+      "type": {
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "fee",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ]
+}
